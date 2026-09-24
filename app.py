@@ -1,4 +1,3 @@
-
 """Silica concentrate prediction: an honest look at what the plant data supports.
 
 Reads two small CSVs exported from the notebook:
@@ -57,13 +56,23 @@ scores = pd.DataFrame(
 best = scores.set_index("Model")
 
 # ---------------------------------------------------------------- headline
-st.title("My first silica model scored R² 0.998. That number was wrong.")
+st.title("Silica Concentrate Prediction in Iron Ore Flotation")
+st.caption(
+    "Brandon Kazangarare · Mining Engineering, Central South University · "
+    "[notebook and code on GitHub](https://github.com/BrandonKaza32/Silica-flotation-prediction)"
+)
 st.write(
-    "This project predicts % silica in iron ore flotation concentrate from plant data. "
-    "The first version looked near-perfect because of data leakage. "
-    "This app shows the rebuilt, leak-free results and what they say about the plant."
+    "Silica is the main impurity in iron ore flotation concentrate, and it is confirmed by a lab assay "
+    "only once an hour, while the plant's sensors log every 20 seconds. Between assays, operators are "
+    "adjusting a process whose current quality they cannot see. This project asks how well those sensors "
+    "can fill that gap."
+)
+st.write(
+    "**The first version of this model scored R² 0.998. That number was wrong** — it came from data leakage. "
+    "What follows are the rebuilt, leak-free results and what they say about the plant."
 )
 
+st.subheader("The scores at a glance")
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("First version (leaky)", f"{LEAKY_R2:.3f}")
 c2.metric("Sensors only", f"{best.loc[MODELS['rf_sensors_only'], 'R²']:.3f}")
